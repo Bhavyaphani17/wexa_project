@@ -36,15 +36,27 @@ public class DashboardService {
                 .sum();
 
         long lowStockProducts = products.stream()
-                .filter(product ->
-                        product.getQuantity() <=
-                                product.getLowStockThreshold())
+                .filter(product -> {
+                    Integer threshold = product.getLowStockThreshold();
+
+                    if (threshold == null) {
+                        threshold = user.getOrganization()
+                                .getDefaultLowStockThreshold();
+                    }
+
+                    return product.getQuantity() <= threshold;
+                })
                 .count();
 
         BigDecimal inventoryValue = products.stream()
-                .map(product ->
-                        product.getSellingPrice().multiply(
-                                BigDecimal.valueOf(product.getQuantity())))
+                .map(product -> {
+                    BigDecimal sellingPrice = product.getSellingPrice() != null
+                            ? product.getSellingPrice()
+                            : BigDecimal.ZERO;
+
+                    return sellingPrice.multiply(
+                            BigDecimal.valueOf(product.getQuantity()));
+                })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return new DashboardResponse(

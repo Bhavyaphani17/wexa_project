@@ -15,12 +15,19 @@ public class Organization {
     @Column(nullable = false, length = 100)
     private String name;
 
+    @Column(name = "default_low_stock_threshold", nullable = false)
+    private Integer defaultLowStockThreshold = 5;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+
+        if (defaultLowStockThreshold == null || defaultLowStockThreshold <= 0) {
+            defaultLowStockThreshold = 5;
+        }
     }
 
     public Organization() {}
@@ -39,6 +46,14 @@ public class Organization {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getDefaultLowStockThreshold() {
+        return defaultLowStockThreshold;
+    }
+
+    public void setDefaultLowStockThreshold(Integer defaultLowStockThreshold) {
+        this.defaultLowStockThreshold = defaultLowStockThreshold;
     }
 
     public LocalDateTime getCreatedAt() {
