@@ -1,0 +1,18 @@
+# Java / Maven
+**/target/
+
+# React
+frontend/node_modules/
+frontend/dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+*.iml
+
+# Logs
+*.log
