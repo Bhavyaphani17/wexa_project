@@ -16,3 +16,6 @@ frontend/dist/
 
 # Logs
 *.log
+
+# Sensitive application configuration
+/stockflow/src/main/resources/application.properties
