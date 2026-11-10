@@ -1,6 +1,6 @@
 # StockFlow – Inventory Management System
 
-A simple SaaS based inventory management application developed as part of the Software Developer Intern technical assessment at Wexa AI.
+A simple SaaS based inventory management application developed as part of the Software Developer Intern assessment at Wexa AI.
 
 ## Project Overview
 
